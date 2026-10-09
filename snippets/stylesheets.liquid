@@ -17,3 +17,13 @@
 {%- else -%}
   {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
 {%- endif -%}
+
+{%- comment -%}
+  Keep header CSS in the head: style elements inside navigation containers
+  would affect :empty selectors and the header's section-rendering logic.
+{%- endcomment -%}
+<style id="sillage-header-styles">
+  {{ 'component-header-drawer.css' | inline_asset_content }}
+  {{ 'component-header-menu.css' | inline_asset_content }}
+  {{ 'component-header-layout.css' | inline_asset_content }}
+</style>

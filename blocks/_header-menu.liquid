@@ -83,8 +83,7 @@
     </header-menu>
 {% endcase %}
 
-{%- comment -%}Render unchanged header component CSS in the initial HTML to reduce the blocking bundle.{%- endcomment -%}
-<style>{{ 'component-header-menu.css' | inline_asset_content }}</style>
+{%- comment -%}Header component styles render in the document head through stylesheets.liquid.{%- endcomment -%}
 
 {% schema %}
 {
