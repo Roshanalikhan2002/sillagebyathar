@@ -5,5 +5,9 @@
   Shopify Theme Editor compatible
 {%- endcomment -%}
 
-{{ 'overflow-list.css' | asset_url | stylesheet_tag }}
-{{ 'base.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Overflow-list styles are loaded inside its shadow root by snippets/overflow-list.
+  Preload the shared stylesheet through Shopify's native resource hints while
+  keeping it render-blocking to preserve the initial layout.
+{%- endcomment -%}
+{{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
