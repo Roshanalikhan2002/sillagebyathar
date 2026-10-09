@@ -1,0 +1,68 @@
+{%- comment -%}
+  Preserve normal module loading for components rendered on the page, other
+  templates and the editor. On the homepage, absent optional components can
+  register after the hero paints instead of competing with its image request.
+{%- endcomment -%}
+{%- assign optional_modules = 'product-inventory.js|product-inventory,show-more.js|show-more-component,floating-panel.js|floating-panel-component,video-background.js|video-background-component,media-gallery.js|media-gallery,rte-formatter.js|rte-formatter,gift-card-recipient-form.js|gift-card-recipient-form' | split: ',' -%}
+{%- assign deferred_urls = '' -%}
+{%- for module in optional_modules -%}
+  {%- assign entry = module | split: '|' -%}
+  {%- assign opening_tag = '<' | append: entry.last -%}
+  {%- if request.page_type == 'index' and request.design_mode == false and page_content != blank -%}
+    {%- unless page_content contains opening_tag -%}
+      {%- assign module_url = entry.first | asset_url | json -%}
+      {%- assign deferred_urls = deferred_urls | append: module_url | append: ',' -%}
+      {%- continue -%}
+    {%- endunless -%}
+  {%- endif -%}
+  <script src="{{ entry.first | asset_url }}" type="module" fetchpriority="low"></script>
+{%- endfor -%}
+{%- if deferred_urls != blank -%}
+  <script>
+    (() => {
+      const urls = [{{ deferred_urls }}];
+      let pending = true;
+      let observer;
+      let timer;
+      const load = () => {
+        if (!pending) return;
+        pending = false;
+        clearTimeout(timer);
+        observer?.disconnect();
+        document.removeEventListener('pointerdown', load, true);
+        document.removeEventListener('keydown', load, true);
+        for (const url of urls) {
+          const script = document.createElement('script');
+          script.type = 'module';
+          script.src = url;
+          script.fetchPriority = 'low';
+          document.head.append(script);
+        }
+      };
+      const afterPaint = () => requestAnimationFrame(() => requestAnimationFrame(load));
+      const watchHero = () => {
+        const hero = document.querySelector('.hero__image[loading="eager"][fetchpriority="high"]');
+        if (!hero) return false;
+        observer?.disconnect();
+        if (hero.complete) afterPaint();
+        else {
+          hero.addEventListener('load', afterPaint, { once: true });
+          hero.addEventListener('error', load, { once: true });
+        }
+        return true;
+      };
+      // Fast interaction, a missing/failed hero and background tabs must still
+      // receive every module. No optional feature is removed from the page.
+      document.addEventListener('pointerdown', load, { capture: true, once: true });
+      document.addEventListener('keydown', load, { capture: true, once: true });
+      timer = setTimeout(load, 5000);
+      if (!watchHero()) {
+        observer = new MutationObserver(watchHero);
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        document.addEventListener('DOMContentLoaded', () => {
+          if (!watchHero()) load();
+        }, { once: true });
+      }
+    })();
+  </script>
+{%- endif -%}

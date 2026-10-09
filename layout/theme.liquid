@@ -67,7 +67,7 @@
       Shopify theme metadata and font resources.
     {%- endcomment -%}
 
-    {%- render 'scripts' -%}
+    {%- render 'scripts', page_content: content_for_layout -%}
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-schemes' -%}
 
