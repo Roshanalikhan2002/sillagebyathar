@@ -1,8 +1,8 @@
 {%- comment -%}
   Read the first eager hero's already-rendered image attributes so the preload
   uses exactly the same CDN URLs, srcset and sizes as image_tag. A single HTML
-  hint sets high priority when the HTML is parsed. The matching native
-  image_tag Link header can start the same responsive request before parsing.
+  hint lets us set fetchpriority on the request itself without a second,
+  lower-priority image_tag HTTP-header preload.
 {%- endcomment -%}
 {%- if request.page_type == 'index' -%}
   {%- assign image_tags = page_content | split: '<img ' -%}
