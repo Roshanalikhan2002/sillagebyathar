@@ -57,8 +57,6 @@
 
 <img 
 src="{{ product.featured_image | image_url: width: 600 }}"
-srcset="{{ product.featured_image | image_url: width: 280 }} 280w, {{ product.featured_image | image_url: width: 420 }} 420w, {{ product.featured_image | image_url: width: 560 }} 560w, {{ product.featured_image | image_url: width: 600 }} 600w"
-sizes="(max-width: 900px) 280px, (max-width: 1340px) calc((100vw - 115px) / 4), 306px"
 alt="{{ product.title | escape }}"
 class="product-main-image"
 width="600"
