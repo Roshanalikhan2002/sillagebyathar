@@ -29,8 +29,20 @@ Three sequential cold-cache mobile runs used the same browser, viewport, DPR and
 
 A heading-font preload experiment (`93b1b4a`) advanced font discovery but increased hero download duration from 0.83–0.93s to 1.08–1.18s. It was reverted and pushed in `847c0eb`.
 
-Commit `668adea` moves collection facet CSS and Quick Add modal CSS out of the shared bundle and into their rendering components. Shared product-swatch, sorting and view-details declarations stay global. No CSS declarations or animations were removed. Quick Add is disabled in the current store settings, so its local stylesheet is absent from the homepage.
+Commit `668adea` moves collection facet CSS and Quick Add modal CSS out of the shared bundle and into their rendering components. Shared product-swatch, sorting and view-details declarations stay global. No CSS declarations or animations were removed. Correction: the synced homepage renders a Quick Add dialog placeholder even though it has no Quick Add buttons. Its local modal CSS remains in the HTML; this move reduces the blocking stylesheet response, rather than removing all modal CSS bytes from the homepage.
 
 The synced homepage's compiled CSS decreased from 184,927 to 164,730 decoded bytes. Actual encoded response bytes in the controlled runs decreased from 24,917 to 22,662 (9.1%). Its gzip estimate decreased from 29,729 to 26,677 bytes. Twelve mobile/desktop home, collection, product and search states had identical captured layout/style properties. All 126 section/block schemas still parse successfully.
 
 After the CSS change, hero download durations were 0.83–0.87s, and LCP minus critical CSS discovery was 1.01–1.09s, versus 1.03–1.34s before the experiment. The ranges overlap; this demonstrates smaller blocking payload without establishing a 90+ Google score. A fresh Google audit of the synced revision is still required.
+
+## Hero request competition: October 9
+
+Google report `vbxbn4xf0a` scored 79: FCP 2.2s, LCP 4.8s, Speed Index 3.5s, TBT 60ms and CLS 0.045. These improve on report `10xuadrn27`, but the target of 90+ remains unmet.
+
+The mobile browser trace confirms the hero is already served as WebP and has no opacity, visibility or entrance animation. Its request overlaps with seven optional module entry points whose components are absent from the homepage. The approximately three-second variation in earlier local request discovery was attributable to local DNS resolution; it must not be mistaken for theme rendering time.
+
+Commits `027a156` and `75afe44` preserve immediate loading on other templates, in the editor, and when an optional component is in the rendered homepage content. Absent homepage feature modules are registered after the hero download, image decoding and two animation frames. Early keyboard/pointer interaction, a failed/missing hero and a five-second deadline ensure registration still happens. Header, search, cart, product-form modules and Shopify/app scripts retain their existing loaders.
+
+Three sequential cold-cache, throttled mobile runs of `75afe44` confirmed all seven optional requests start after both the hero download and recorded LCP, all seven custom elements register, and no page JavaScript errors occur. These entry points total 4,797 encoded bytes; they are rescheduled, not removed. Hero downloads took 0.83–0.89s. LCP after the document response started ranged from 1.03–1.20s, with a median of 1.13s. These local measurements do not establish a Google score improvement and should be followed by a fresh audit of the synced revision.
+
+The controlled early-interaction check held the hero response and verified all seven custom elements could register before the image was released. Product and collection pages retained all seven normal module script tags without the deferred loader. Search results, clear and Escape-close passed, with no JavaScript errors; twelve captured home/collection/product mobile and desktop layout/search states remained identical.
