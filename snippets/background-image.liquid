@@ -54,6 +54,9 @@
       if section and section.index <= 3
         assign loading = 'eager'
       endif
+      if loading == 'lazy' and fetch_priority != 'high'
+        assign fetch_priority = 'low'
+      endif
     %}
     {{
       background_image
