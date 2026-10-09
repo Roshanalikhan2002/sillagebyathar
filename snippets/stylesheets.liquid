@@ -7,7 +7,13 @@
 
 {%- comment -%}
   Overflow-list styles are inline inside its shadow root by snippets/overflow-list.
-  Preload the shared stylesheet through Shopify's native resource hints while
-  keeping it render-blocking to preserve the initial layout.
+  Inline the complete base stylesheet on the homepage to remove its blocking
+  request. Other templates retain the cacheable external stylesheet.
+  Keep base-styles-inline synchronized with assets/base.css using
+  scripts/update-inline-base.ps1 whenever the base stylesheet changes.
 {%- endcomment -%}
-{{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+{%- if request.page_type == 'index' -%}
+  <style id="sillage-base-styles">{%- render 'base-styles-inline' -%}</style>
+{%- else -%}
+  {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+{%- endif -%}
