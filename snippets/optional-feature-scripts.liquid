@@ -44,9 +44,15 @@
         const hero = document.querySelector('.hero__image[loading="eager"][fetchpriority="high"]');
         if (!hero) return false;
         observer?.disconnect();
-        if (hero.complete) afterPaint();
+        const ready = () => {
+          // An asynchronous image can finish downloading before its pixels
+          // are decoded. Let decoding finish before reserving paint frames.
+          if (typeof hero.decode === 'function') hero.decode().then(afterPaint, load);
+          else afterPaint();
+        };
+        if (hero.complete) ready();
         else {
-          hero.addEventListener('load', afterPaint, { once: true });
+          hero.addEventListener('load', ready, { once: true });
           hero.addEventListener('error', load, { once: true });
         }
         return true;
