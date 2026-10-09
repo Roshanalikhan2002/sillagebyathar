@@ -19,6 +19,7 @@
   <head>
     {%- render 'meta-tags' -%}
     {%- render 'hero-preload', page_content: content_for_layout -%}
+    {%- render 'fonts' -%}
     {%- render 'stylesheets' -%}
 
     {%- if settings.favicon != blank -%}
@@ -66,7 +67,6 @@
       Shopify theme metadata and font resources.
     {%- endcomment -%}
 
-    {%- render 'fonts' -%}
     {%- render 'scripts' -%}
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-schemes' -%}
