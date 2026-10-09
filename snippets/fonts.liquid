@@ -55,10 +55,12 @@
 {%- endcomment -%}
 
 {%- if body_is_custom -%}
+  {%- capture body_subset_asset -%}{%- render 'font-subset-asset', font: body_font -%}{%- endcapture -%}
+  {%- assign body_subset_asset = body_subset_asset | strip -%}
   <link
     rel="preload"
     as="font"
-    href="{{ body_font | font_url }}"
+    href="{% if body_subset_asset != blank %}{{ body_subset_asset | asset_url }}{% else %}{{ body_font | font_url }}{% endif %}"
     type="font/woff2"
     crossorigin
   >

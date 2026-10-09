@@ -1,0 +1,14 @@
+{%- comment -%}
+  Match the exact original Shopify font version used to generate each subset.
+  Different font selections or future font revisions keep native Shopify URLs.
+{%- endcomment -%}
+{%- assign source_font_url = font | font_url -%}
+{%- if source_font_url contains 'newsreader_n2.5960e0b0697503210b916625dc75038e9a2edf1e' -%}
+  newsreader-latin-200.woff2
+{%- elsif source_font_url contains 'newsreader_n7.23ab8134dd970213aaed7699491a8a2cb47dae45' -%}
+  newsreader-latin-700.woff2
+{%- elsif source_font_url contains 'redhattext_n4.f45549d853e5e3e2907f21be9aecf95e1eaa7516' -%}
+  red-hat-text-latin-400.woff2
+{%- elsif source_font_url contains 'redhattext_n7.01cb725162eb34b374670b9c1bc513ac241650e6' -%}
+  red-hat-text-latin-700.woff2
+{%- endif -%}

@@ -6,10 +6,10 @@
       assign primary_font_bold_italic = primary_font_bold | font_modify: 'style', 'italic'
     %}
 
-    {{ settings.type_body_font | font_face: font_display: 'swap' }}
-    {{ primary_font_bold | font_face: font_display: 'swap' }}
-    {{ primary_font_italic | font_face: font_display: 'swap' }}
-    {{ primary_font_bold_italic | font_face: font_display: 'swap' }}
+    {% render 'font-face', font: settings.type_body_font %
+    {% render 'font-face', font: primary_font_bold %
+    {% render 'font-face', font: primary_font_italic %
+    {% render 'font-face', font: primary_font_bold_italic %
   {% endif %}
 
   {% if settings.type_subheading_font.family != blank and settings.type_subheading_font != settings.type_body_font %}
@@ -19,10 +19,10 @@
       assign secondary_font_bold_italic = secondary_font_bold | font_modify: 'style', 'italic'
     %}
 
-    {{ settings.type_subheading_font | font_face: font_display: 'swap' }}
-    {{ secondary_font_bold | font_face: font_display: 'swap' }}
-    {{ secondary_font_italic | font_face: font_display: 'swap' }}
-    {{ secondary_font_bold_italic | font_face: font_display: 'swap' }}
+    {% render 'font-face', font: settings.type_subheading_font %
+    {% render 'font-face', font: secondary_font_bold %
+    {% render 'font-face', font: secondary_font_italic %
+    {% render 'font-face', font: secondary_font_bold_italic %
   {% endif %}
 
   {% if settings.type_heading_font.family != blank and settings.type_heading_font != settings.type_body_font and settings.type_heading_font != settings.type_subheading_font %}
@@ -32,10 +32,10 @@
       assign tertiary_font_bold_italic = tertiary_font_bold | font_modify: 'style', 'italic'
     %}
 
-    {{ settings.type_heading_font | font_face: font_display: 'swap' }}
-    {{ tertiary_font_bold | font_face: font_display: 'swap' }}
-    {{ tertiary_font_italic | font_face: font_display: 'swap' }}
-    {{ tertiary_font_bold_italic | font_face: font_display: 'swap' }}
+    {% render 'font-face', font: settings.type_heading_font %
+    {% render 'font-face', font: tertiary_font_bold %
+    {% render 'font-face', font: tertiary_font_italic %
+    {% render 'font-face', font: tertiary_font_bold_italic %
   {% endif %}
 
   {% if settings.type_accent_font.family != blank and settings.type_accent_font != settings.type_body_font and settings.type_accent_font != settings.type_subheading_font and settings.type_accent_font != settings.type_heading_font %}
@@ -45,10 +45,10 @@
       assign accent_font_bold_italic = accent_font_bold | font_modify: 'style', 'italic'
     %}
 
-    {{ settings.type_accent_font | font_face: font_display: 'swap' }}
-    {{ accent_font_bold | font_face: font_display: 'swap' }}
-    {{ accent_font_italic | font_face: font_display: 'swap' }}
-    {{ accent_font_bold_italic | font_face: font_display: 'swap' }}
+    {% render 'font-face', font: settings.type_accent_font %
+    {% render 'font-face', font: accent_font_bold %
+    {% render 'font-face', font: accent_font_italic %
+    {% render 'font-face', font: accent_font_bold_italic %
   {% endif %}
 
   :root {

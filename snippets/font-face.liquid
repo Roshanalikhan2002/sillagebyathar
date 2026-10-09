@@ -1,0 +1,15 @@
+{%- if font != blank -%}
+  {{ font | font_face: font_display: 'swap' }}
+  {%- capture subset_asset -%}{%- render 'font-subset-asset', font: font -%}{%- endcapture -%}
+  {%- assign subset_asset = subset_asset | strip -%}
+  {%- if subset_asset != blank -%}
+    @font-face {
+      font-family: {{ font.family | json }};
+      font-style: {{ font.style }};
+      font-weight: {{ font.weight }};
+      font-display: swap;
+      src: url({{ subset_asset | asset_url | json }}) format('woff2');
+      unicode-range: U+0000-00FF, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF, U+2212, U+FEFF, U+FFFD;
+    }
+  {%- endif -%}
+{%- endif -%}
