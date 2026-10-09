@@ -1,4 +1,4 @@
-{% style %}
+<style data-shopify>
   {% if settings.type_body_font.family != blank %}
     {%- liquid
       assign primary_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -567,4 +567,4 @@
     --cart-secondary-font-style: var(--font-{{ settings.cart_price_font }}--style);
     --cart-secondary-font-weight: var(--font-{{ settings.cart_price_font }}--weight);
   }
-{% endstyle %}
+</style>
