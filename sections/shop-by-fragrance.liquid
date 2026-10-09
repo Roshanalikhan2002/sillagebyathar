@@ -1,0 +1,421 @@
+<section class="fragrance-category-section">
+
+<div class="fragrance-container">
+
+
+<div class="fragrance-header">
+
+<h2>
+{{ section.settings.heading }}
+</h2>
+
+
+{% if section.settings.subheading != blank %}
+
+<p>
+{{ section.settings.subheading }}
+</p>
+
+{% endif %}
+
+
+</div>
+
+
+
+<div class="fragrance-slider">
+
+
+{% for block in section.blocks %}
+
+{% assign collection = block.settings.collection %}
+
+
+
+<a 
+href="{{ collection.url }}"
+class="fragrance-card"
+{{ block.shopify_attributes }}
+>
+
+
+<div class="fragrance-image">
+
+
+{% if block.settings.custom_image != blank %}
+
+<img 
+src="{{ block.settings.custom_image | image_url: width: 380 }}"
+alt="{{ block.settings.title | escape }}"
+width="190"
+height="190"
+loading="lazy"
+decoding="async"
+>
+
+
+{% elsif collection.image %}
+
+
+<img
+src="{{ collection.image | image_url: width: 380 }}"
+alt="{{ collection.title | escape }}"
+width="190"
+height="190"
+loading="lazy"
+decoding="async"
+>
+
+
+{% else %}
+
+
+<img
+src="{{ collection.products.first.featured_image | image_url: width: 380 }}"
+alt="{{ collection.title | escape }}"
+width="190"
+height="190"
+loading="lazy"
+decoding="async"
+>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+<h3>
+
+{% if block.settings.title != blank %}
+
+{{ block.settings.title }}
+
+{% else %}
+
+{{ collection.title }}
+
+{% endif %}
+
+</h3>
+
+
+
+{% if block.settings.description != blank %}
+
+<p>
+{{ block.settings.description }}
+</p>
+
+{% endif %}
+
+
+
+</a>
+
+
+{% endfor %}
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+
+<style>
+
+
+.fragrance-category-section{
+
+padding:40px 0px;
+background:#fff;
+
+}
+
+
+
+.fragrance-container{
+
+max-width:1300px;
+margin:auto;
+
+}
+
+
+
+.fragrance-header{
+
+text-align:center;
+margin-bottom:45px;
+
+}
+
+
+
+.fragrance-header h2{
+
+font-size:38px;
+font-weight:500;
+margin-bottom:10px;
+
+}
+
+
+
+.fragrance-header p{
+
+font-size:16px;
+color:#444;
+
+}
+
+
+
+
+
+.fragrance-slider{
+
+display:flex;
+justify-content:center;
+gap:35px;
+
+}
+
+
+
+
+
+.fragrance-card{
+
+text-decoration:none;
+color:#222;
+text-align:center;
+width:170px;
+
+}
+
+
+
+.fragrance-image{
+
+width:190px;
+height:190px;
+aspect-ratio:1 / 1;
+contain:layout;
+border-radius:50%;
+overflow:hidden;
+margin:auto;
+background:#f6f4f0;
+
+}
+
+
+
+.fragrance-image img{
+
+width:100%;
+height:100%;
+object-fit:cover;
+
+}
+
+
+
+.fragrance-card h3{
+
+font-size:18px;
+margin:18px 0 6px;
+font-weight:600;
+
+}
+
+
+
+.fragrance-card p{
+
+font-size:13px;
+color:#444;
+line-height:1.5;
+margin:0;
+
+}
+
+
+
+
+
+@media(max-width:768px){
+
+
+.fragrance-category-section{
+
+padding:50px 15px;
+
+}
+
+
+.fragrance-header h2{
+
+font-size:28px;
+
+}
+
+
+
+.fragrance-slider{
+
+justify-content:flex-start;
+overflow-x:auto;
+gap:20px;
+scroll-behavior:smooth;
+
+}
+
+
+.fragrance-slider::-webkit-scrollbar{
+
+display:none;
+
+}
+
+
+
+.fragrance-card{
+
+min-width:130px;
+
+}
+
+
+
+.fragrance-image{
+
+width:130px;
+height:130px;
+
+}
+
+
+
+.fragrance-card h3{
+
+font-size:16px;
+
+}
+
+
+
+}
+
+
+
+
+</style>
+
+
+
+
+
+{% schema %}
+{
+"name":"Shop By Fragrance",
+"settings":[
+
+{
+"type":"text",
+"id":"heading",
+"label":"Heading",
+"default":"Find Your Signature Scent"
+},
+
+{
+"type":"textarea",
+"id":"subheading",
+"label":"Sub Heading",
+"default":"Explore fragrances crafted for every mood and occasion"
+}
+
+],
+
+"blocks":[
+
+{
+"type":"category",
+"name":"Fragrance Category",
+
+"settings":[
+
+
+{
+"type":"collection",
+"id":"collection",
+"label":"Select Collection"
+},
+
+
+{
+"type":"image_picker",
+"id":"custom_image",
+"label":"Custom Category Image"
+},
+
+
+{
+"type":"text",
+"id":"title",
+"label":"Custom Title",
+"default":"Fresh"
+},
+
+
+{
+"type":"textarea",
+"id":"description",
+"label":"Description",
+"default":"Clean & refreshing scents"
+}
+
+
+]
+
+}
+
+],
+
+
+"presets":[
+
+{
+"name":"Shop By Fragrance",
+
+"blocks":[
+
+{
+"type":"category"
+},
+
+{
+"type":"category"
+},
+
+{
+"type":"category"
+}
+
+]
+
+}
+
+]
+
+}
+{% endschema %}

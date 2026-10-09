@@ -1,0 +1,454 @@
+<section class="discovery-section">
+
+<div class="discovery-container">
+
+
+<div class="discovery-image">
+
+
+{% if section.settings.image != blank %}
+
+<img 
+src="{{ section.settings.image | image_url: width: 900 }}"
+alt="{{ section.settings.heading | default: 'Discovery Set' | escape }}"
+width="{{ section.settings.image.width | default: 900 }}"
+height="{{ section.settings.image.height | default: 900 }}"
+loading="lazy"
+decoding="async"
+>
+
+{% endif %}
+
+
+</div>
+
+
+
+
+<div class="discovery-content">
+
+
+{% if section.settings.small_text != blank %}
+
+<span class="discovery-small-text">
+{{ section.settings.small_text }}
+</span>
+
+{% endif %}
+
+
+
+<h2>
+{{ section.settings.heading }}
+</h2>
+
+
+
+<p class="discovery-description">
+
+{{ section.settings.description }}
+
+</p>
+
+
+
+
+<div class="discovery-benefits">
+
+
+{% if section.settings.benefit_1 != blank %}
+
+<div>
+✓ {{ section.settings.benefit_1 }}
+</div>
+
+{% endif %}
+
+
+
+{% if section.settings.benefit_2 != blank %}
+
+<div>
+✓ {{ section.settings.benefit_2 }}
+</div>
+
+{% endif %}
+
+
+
+
+{% if section.settings.benefit_3 != blank %}
+
+<div>
+✓ {{ section.settings.benefit_3 }}
+</div>
+
+{% endif %}
+
+
+
+
+{% if section.settings.benefit_4 != blank %}
+
+<div>
+✓ {{ section.settings.benefit_4 }}
+</div>
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+<a 
+href="{{ section.settings.button_link }}"
+class="discovery-button">
+
+{{ section.settings.button_text }}
+
+</a>
+
+
+
+
+<div class="discovery-rating">
+
+★★★★★
+
+<span>
+Loved by fragrance lovers
+</span>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<style>
+
+
+.discovery-section{
+
+padding:40px 8px;
+background:{{ section.settings.background_color }};
+
+}
+
+
+.discovery-container{
+
+max-width:1300px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+gap:60px;
+
+}
+
+
+
+
+
+.discovery-image img{
+
+width:100%;
+height:auto;
+contain:layout;
+border-radius:20px;
+display:block;
+
+}
+
+
+
+
+.discovery-content{
+
+max-width:520px;
+
+}
+
+
+
+
+.discovery-small-text{
+
+font-size:14px;
+letter-spacing:2px;
+text-transform:uppercase;
+color:#805917;
+font-weight:600;
+
+}
+
+
+
+
+
+.discovery-content h2{
+
+font-size:42px;
+line-height:1.2;
+font-weight:500;
+margin:15px 0 20px;
+
+}
+
+
+
+
+.discovery-description{
+
+font-size:17px;
+line-height:1.7;
+color:#555;
+margin-bottom:25px;
+
+}
+
+
+
+
+
+.discovery-benefits{
+
+display:flex;
+flex-direction:column;
+gap:12px;
+margin-bottom:30px;
+
+}
+
+
+
+.discovery-benefits div{
+
+font-size:15px;
+color:#333;
+
+}
+
+
+
+
+
+.discovery-button{
+
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:16px 35px;
+background:#111;
+color:#fff;
+text-decoration:none;
+border-radius:8px;
+font-size:15px;
+font-weight:600;
+
+}
+
+
+
+
+
+.discovery-rating{
+
+margin-top:25px;
+display:flex;
+align-items:center;
+gap:10px;
+color:#C59B5F;
+
+}
+
+
+
+.discovery-rating span{
+
+color:#555;
+font-size:14px;
+
+}
+
+
+
+
+
+
+
+@media(max-width:768px){
+
+
+.discovery-section{
+
+padding:50px 15px;
+
+}
+
+
+.discovery-container{
+
+grid-template-columns:1fr;
+gap:35px;
+
+}
+
+
+
+.discovery-content h2{
+
+font-size:30px;
+
+}
+
+
+
+.discovery-description{
+
+font-size:15px;
+
+}
+
+
+
+.discovery-button{
+
+width:100%;
+
+}
+
+
+
+}
+
+</style>
+
+
+
+
+
+
+
+{% schema %}
+{
+"name":"Discovery Set Banner",
+
+"settings":[
+
+
+{
+"type":"image_picker",
+"id":"image",
+"label":"Discovery Set Image"
+},
+
+
+{
+"type":"color",
+"id":"background_color",
+"label":"Background Color",
+"default":"#F8F3EC"
+},
+
+
+{
+"type":"text",
+"id":"small_text",
+"label":"Small Heading",
+"default":"DISCOVER YOUR SIGNATURE SCENT"
+},
+
+
+{
+"type":"text",
+"id":"heading",
+"label":"Main Heading",
+"default":"Not Sure Which Fragrance Fits You?"
+},
+
+
+{
+"type":"textarea",
+"id":"description",
+"label":"Description",
+"default":"Explore our curated discovery set and find your perfect fragrance before choosing your full-size bottle."
+},
+
+
+{
+"type":"text",
+"id":"benefit_1",
+"label":"Benefit 1",
+"default":"5 Premium Fragrances To Explore"
+},
+
+
+{
+"type":"text",
+"id":"benefit_2",
+"label":"Benefit 2",
+"default":"Perfect Way To Find Your Signature Scent"
+},
+
+
+{
+"type":"text",
+"id":"benefit_3",
+"label":"Benefit 3",
+"default":"Long Lasting Luxury Inspired Scents"
+},
+
+
+{
+"type":"text",
+"id":"benefit_4",
+"label":"Benefit 4",
+"default":"Great Gift Option"
+},
+
+
+{
+"type":"text",
+"id":"button_text",
+"label":"Button Text",
+"default":"Explore Discovery Set"
+},
+
+
+{
+"type":"url",
+"id":"button_link",
+"label":"Button Link"
+}
+
+
+],
+
+
+"presets":[
+
+{
+"name":"Discovery Set Banner"
+}
+
+]
+
+}
+{% endschema %}

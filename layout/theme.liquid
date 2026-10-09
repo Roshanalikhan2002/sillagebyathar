@@ -1,0 +1,161 @@
+
+{%- comment -%}
+  ----------------------------------------------------------------------------
+  Sillage developed by fulfillit | lead developer Ali Hamza
+
+  Theme Layout
+  - Shopify core functionality preserved
+  - Homepage hero preload removed for duplicate-request testing
+  - Product image preload retained
+  - Safe Shopify app and analytics initialization
+  ----------------------------------------------------------------------------
+{%- endcomment -%}
+
+<!doctype html>
+<html
+  class="no-js{% if request.design_mode %} shopify-design-mode{% endif %}"
+  lang="{{ request.locale.iso_code }}"
+>
+  <head>
+    {%- render 'stylesheets' -%}
+
+    {%- if settings.favicon != blank -%}
+      <link
+        rel="icon"
+        type="image/png"
+        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+      >
+    {%- endif -%}
+
+    {%- comment -%}
+      View transition helper.
+      Preserved from the original theme.
+    {%- endcomment -%}
+    <link
+      rel="expect"
+      href="#MainContent"
+      id="view-transition-render-blocker"
+    >
+
+    {%- comment -%}
+      Product Page LCP Image Preload
+
+      Only enabled for product templates.
+
+      Homepage image preload intentionally removed
+      to investigate duplicate image downloads.
+    {%- endcomment -%}
+
+    {%- if request.page_type == 'product' and product.featured_media -%}
+      {%- assign lcp_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+
+      {%- if lcp_image != blank -%}
+        <link
+          rel="preload"
+          as="image"
+          href="{{ lcp_image | image_url: width: 900 }}"
+          imagesrcset="{{ lcp_image | image_url: width: 360 }} 360w, {{ lcp_image | image_url: width: 480 }} 480w, {{ lcp_image | image_url: width: 720 }} 720w, {{ lcp_image | image_url: width: 900 }} 900w, {{ lcp_image | image_url: width: 1200 }} 1200w"
+          imagesizes="(max-width: 749px) 100vw, (max-width: 989px) 50vw, 600px"
+          fetchpriority="high"
+        >
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- comment -%}
+      Shopify theme metadata and font resources.
+    {%- endcomment -%}
+
+    {%- render 'meta-tags' -%}
+    {%- render 'fonts' -%}
+    {%- render 'scripts' -%}
+    {%- render 'theme-styles-variables' -%}
+    {%- render 'color-schemes' -%}
+
+    {%- comment -%}
+      Theme editor support.
+    {%- endcomment -%}
+
+    {%- if request.design_mode -%}
+      {%- render 'theme-editor' -%}
+    {%- endif -%}
+
+    {%- comment -%}
+      Shopify-managed app embeds, analytics,
+      storefront scripts and web pixels.
+
+      Do not modify content_for_header using
+      Liquid string replacements.
+    {%- endcomment -%}
+
+    {{ content_for_header }}
+
+  </head>
+
+  <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+
+    {%- render 'skip-to-content-link',
+      href: '#MainContent',
+      text: 'accessibility.skip_to_text'
+    -%}
+
+    {%- comment -%}
+      Website Header
+    {%- endcomment -%}
+
+    <div id="header-group">
+      {% sections 'header-group' %}
+    </div>
+
+    {%- comment -%}
+      Theme Critical JavaScript
+    {%- endcomment -%}
+
+    <script
+      src="{{ 'critical.js' | asset_url }}"
+      type="module"
+      async
+    ></script>
+
+    {%- comment -%}
+      Main Website Content
+    {%- endcomment -%}
+
+    <main
+      id="MainContent"
+      class="content-for-layout"
+      role="main"
+      data-page-transition-enabled="{{ settings.page_transition_enabled }}"
+      data-product-transition="{{ settings.transition_to_main_product }}"
+      data-template="{{ template }}"
+    >
+      {{ content_for_layout }}
+    </main>
+
+    {%- comment -%}
+      Website Footer
+    {%- endcomment -%}
+
+    {% sections 'footer-group' %}
+
+    {%- comment -%}
+      Search Modal
+    {%- endcomment -%}
+
+    {% render 'search-modal' %}
+
+    {%- comment -%}
+      Shopify Quick Add Modal
+    {%- endcomment -%}
+
+    {% if settings.quick_add or settings.mobile_quick_add %}
+      {% render 'quick-add-modal' %}
+    {% endif %}
+
+    {%- comment -%}
+      Existing lightweight speed optimizer.
+    {%- endcomment -%}
+
+    {% render 'speed-optimizer' %}
+
+  </body>
+</html>

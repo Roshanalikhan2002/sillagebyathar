@@ -1,0 +1,65 @@
+
+{%- comment -%}
+  -------------------------------------------------------
+  Sillage | Optimized Font Loading
+  Developed by Fulfillit | Ali Hamza
+
+  - Preload primary body font
+  - Avoid duplicate font preloads
+  - Support Shopify theme settings
+  - Reduce unnecessary high-priority requests
+  -------------------------------------------------------
+{%- endcomment -%}
+
+{%- assign body_font = settings.type_body_font -%}
+{%- assign heading_font = settings.type_heading_font -%}
+{%- assign subheading_font = settings.type_subheading_font -%}
+{%- assign accent_font = settings.type_accent_font -%}
+
+{%- assign body_is_custom = false -%}
+{%- assign heading_is_custom = false -%}
+{%- assign subheading_is_custom = false -%}
+{%- assign accent_is_custom = false -%}
+
+{%- if body_font != blank and body_font.system? == false -%}
+  {%- assign body_is_custom = true -%}
+{%- endif -%}
+
+{%- if heading_font != blank and heading_font.system? == false -%}
+  {%- assign heading_is_custom = true -%}
+{%- endif -%}
+
+{%- if subheading_font != blank and subheading_font.system? == false -%}
+  {%- assign subheading_is_custom = true -%}
+{%- endif -%}
+
+{%- if accent_font != blank and accent_font.system? == false -%}
+  {%- assign accent_is_custom = true -%}
+{%- endif -%}
+
+{%- if body_is_custom
+  or heading_is_custom
+  or subheading_is_custom
+  or accent_is_custom
+-%}
+  <link
+    rel="preconnect"
+    href="https://fonts.shopifycdn.com"
+    crossorigin
+  >
+{%- endif -%}
+
+{%- comment -%}
+  Preload primary body font only.
+  Other fonts load normally through theme CSS.
+{%- endcomment -%}
+
+{%- if body_is_custom -%}
+  <link
+    rel="preload"
+    as="font"
+    href="{{ body_font | font_url }}"
+    type="font/woff2"
+    crossorigin
+  >
+{%- endif -%}

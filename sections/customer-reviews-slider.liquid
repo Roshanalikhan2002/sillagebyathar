@@ -1,0 +1,516 @@
+<section class="review-section">
+
+<div class="review-container">
+
+
+<div class="review-heading">
+
+<h2>
+Our Customer Reviews
+</h2>
+
+<div class="overall-rating">
+
+<span class="big-stars">
+★★★★★
+</span>
+
+<span>
+4.9/5 Based on 120+ Reviews
+</span>
+
+</div>
+
+</div>
+
+
+
+
+<div class="review-slider-wrapper">
+
+
+<button class="review-arrow prev" aria-label="Previous review">
+‹
+</button>
+
+
+<div class="review-slider" id="reviewSlider">
+
+
+
+<div class="review-card">
+
+<div class="review-stars">
+★★★★★
+</div>
+
+<p>
+"Honestly, the fragrance quality surprised me. Smell bohat premium hai and packaging gives a luxury feel. Perfect for daily wear."
+</p>
+
+
+<div class="review-user">
+
+<strong>
+Ahmed R.
+</strong>
+
+<span>
+✓ Verified Buyer
+</span>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="review-card">
+
+<div class="review-stars">
+★★★★★
+</div>
+
+<p>
+"I ordered the tester set first and it helped me find my favourite fragrance. Every scent was unique and the quality exceeded expectations."
+</p>
+
+
+<div class="review-user">
+
+<strong>
+Sara K.
+</strong>
+
+<span>
+✓ Verified Buyer
+</span>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="review-card">
+
+<div class="review-stars">
+★★★★★
+</div>
+
+<p>
+"Long lasting fragrance with an elegant feel. I use it for office and events. Received many compliments after wearing it."
+</p>
+
+
+<div class="review-user">
+
+<strong>
+Usman H.
+</strong>
+
+<span>
+✓ Verified Buyer
+</span>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="review-card">
+
+<div class="review-stars">
+★★★★★
+</div>
+
+<p>
+"The packaging was beautiful and delivery was smooth. It feels like an expensive perfume at an affordable price."
+</p>
+
+
+<div class="review-user">
+
+<strong>
+Ayesha M.
+</strong>
+
+<span>
+✓ Verified Buyer
+</span>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="review-card">
+
+<div class="review-stars">
+★★★★★
+</div>
+
+<p>
+"One of the best inspired fragrances I have tried. The projection and scent profile are really impressive."
+</p>
+
+
+<div class="review-user">
+
+<strong>
+Bilal A.
+</strong>
+
+<span>
+✓ Verified Buyer
+</span>
+
+</div>
+
+</div>
+
+
+
+
+</div>
+
+
+<button class="review-arrow next" aria-label="Next review">
+›
+</button>
+
+
+</div>
+
+
+
+</div>
+
+</section>
+
+
+
+
+
+<style>
+
+
+.review-section{
+
+padding:70px 20px;
+background:#ffffff;
+
+}
+
+
+
+.review-container{
+
+max-width:1300px;
+margin:auto;
+
+}
+
+
+
+.review-heading{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:40px;
+
+}
+
+
+
+.review-heading h2{
+
+font-size:42px;
+font-weight:400;
+margin:0;
+
+}
+
+
+
+.overall-rating{
+
+display:flex;
+align-items:center;
+gap:15px;
+font-size:16px;
+
+}
+
+
+
+.big-stars,
+.review-stars{
+
+color:#D4A72C;
+letter-spacing:3px;
+
+}
+
+
+
+
+
+.review-slider-wrapper{
+
+position:relative;
+
+}
+
+
+
+.review-slider{
+
+display:flex;
+gap:25px;
+overflow:hidden;
+scroll-behavior:smooth;
+
+}
+
+
+
+
+.review-card{
+
+min-width:calc(25% - 20px);
+background:#fafafa;
+border:1px solid #eeeeee;
+border-radius:16px;
+padding:30px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+
+}
+
+
+
+.review-card p{
+
+font-size:15px;
+line-height:1.7;
+color:#555;
+margin:20px 0;
+
+}
+
+
+
+.review-user{
+
+display:flex;
+flex-direction:column;
+gap:6px;
+
+}
+
+
+
+.review-user strong{
+
+font-size:16px;
+
+}
+
+
+
+.review-user span{
+
+font-size:13px;
+color:#16803c;
+
+}
+
+
+
+
+.review-arrow{
+
+position:absolute;
+top:45%;
+transform:translateY(-50%);
+width:45px;
+height:45px;
+border-radius:50%;
+border:1px solid #ddd;
+background:white;
+font-size:30px;
+cursor:pointer;
+z-index:5;
+
+}
+
+
+
+.review-arrow.prev{
+
+left:-20px;
+
+}
+
+
+.review-arrow.next{
+
+right:-20px;
+
+}
+
+
+
+
+@media(max-width:900px){
+
+
+.review-card{
+
+min-width:calc(50% - 15px);
+
+}
+
+
+.review-heading{
+
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+
+}
+
+}
+
+
+
+@media(max-width:600px){
+
+
+.review-heading h2{
+
+font-size:30px;
+
+}
+
+
+.review-card{
+
+min-width:90%;
+
+}
+
+
+.review-arrow.prev{
+
+left:0;
+
+}
+
+
+.review-arrow.next{
+
+right:0;
+
+}
+
+
+}
+
+
+
+
+
+</style>
+
+
+
+
+
+<script>
+
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+
+const slider =
+document.getElementById(
+"reviewSlider"
+);
+
+
+const next =
+document.querySelector(
+".review-arrow.next"
+);
+
+
+const prev =
+document.querySelector(
+".review-arrow.prev"
+);
+
+
+
+if(next){
+
+next.onclick=function(){
+
+slider.scrollLeft += 350;
+
+}
+
+}
+
+
+
+if(prev){
+
+prev.onclick=function(){
+
+slider.scrollLeft -= 350;
+
+}
+
+}
+
+
+
+});
+
+
+
+</script>
+
+
+
+
+{% schema %}
+{
+"name": "Customer Reviews Slider",
+"settings": [],
+"presets": [
+{
+"name": "Customer Reviews Slider"
+}
+]
+}
+{% endschema %}

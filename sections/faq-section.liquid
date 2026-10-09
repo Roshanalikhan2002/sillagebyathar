@@ -1,0 +1,377 @@
+<section class="faq-section">
+
+<div class="faq-container">
+
+
+<div class="faq-header">
+
+<h2>
+{{ section.settings.heading }}
+</h2>
+
+
+{% if section.settings.subheading != blank %}
+
+<p>
+{{ section.settings.subheading }}
+</p>
+
+{% endif %}
+
+</div>
+
+
+
+
+<div class="faq-wrapper">
+
+
+{% for block in section.blocks %}
+
+
+<div class="faq-item" {{ block.shopify_attributes }}>
+
+
+<button type="button" class="faq-question" aria-expanded="false">
+
+<span>
+{{ block.settings.question }}
+</span>
+
+<span class="faq-icon">
++
+</span>
+
+</button>
+
+
+
+<div class="faq-answer">
+
+<p>
+{{ block.settings.answer }}
+</p>
+
+</div>
+
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+
+
+
+<style>
+
+
+.faq-section{
+
+padding:80px 20px;
+background:#F8F3EC;
+
+}
+
+
+
+.faq-container{
+
+max-width:900px;
+margin:auto;
+
+}
+
+
+
+
+.faq-header{
+
+text-align:center;
+margin-bottom:45px;
+
+}
+
+
+
+.faq-header h2{
+
+font-size:40px;
+font-weight:500;
+margin-bottom:12px;
+
+}
+
+
+
+.faq-header p{
+
+font-size:16px;
+color:#666;
+
+}
+
+
+
+
+.faq-wrapper{
+
+background:#fff;
+border-radius:16px;
+overflow:hidden;
+
+}
+
+
+
+.faq-item{
+
+border-bottom:1px solid #eee;
+
+}
+
+
+
+.faq-item:last-child{
+
+border-bottom:none;
+
+}
+
+
+
+
+.faq-question{
+
+width:100%;
+padding:22px 25px;
+border:none;
+background:#fff;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+text-align:left;
+
+}
+
+
+
+.faq-icon{
+
+font-size:24px;
+font-weight:300;
+
+}
+
+
+
+.faq-answer{
+
+display:none;
+padding:0 25px 22px;
+
+}
+
+
+
+.faq-answer p{
+
+margin:0;
+font-size:15px;
+line-height:1.7;
+color:#444;
+
+}
+
+
+
+
+.faq-item.active .faq-answer{
+
+display:block;
+
+}
+
+
+
+.faq-item.active .faq-icon{
+
+transform:rotate(45deg);
+
+}
+
+
+
+
+
+
+
+@media(max-width:768px){
+
+
+.faq-section{
+
+padding:50px 15px;
+
+}
+
+
+
+.faq-header h2{
+
+font-size:30px;
+
+}
+
+
+
+.faq-question{
+
+padding:18px;
+font-size:15px;
+
+}
+
+
+
+.faq-answer{
+
+padding:0 18px 18px;
+
+}
+
+
+
+}
+
+
+</style>
+
+
+
+
+
+
+
+<script>
+document.addEventListener("click", function(e) {
+  var btn = e.target.closest(".faq-question");
+  if (!btn) return;
+  var item = btn.closest(".faq-item");
+  if (item) {
+    item.classList.toggle("active");
+    btn.setAttribute("aria-expanded", item.classList.contains("active") ? "true" : "false");
+  }
+});
+</script>
+
+
+
+
+
+
+
+{% schema %}
+{
+"name":"FAQ Section",
+
+"settings":[
+
+
+{
+"type":"text",
+"id":"heading",
+"label":"Heading",
+"default":"Frequently Asked Questions"
+},
+
+
+{
+"type":"textarea",
+"id":"subheading",
+"label":"Sub Heading",
+"default":"Everything you need to know before choosing your perfect fragrance."
+}
+
+
+],
+
+
+"blocks":[
+
+{
+
+"type":"faq",
+
+"name":"FAQ Item",
+
+"settings":[
+
+
+{
+"type":"text",
+"id":"question",
+"label":"Question",
+"default":"Are Sillage By Athar fragrances long lasting?"
+},
+
+
+{
+"type":"textarea",
+"id":"answer",
+"label":"Answer",
+"default":"Our fragrances are crafted using premium quality fragrance oils designed for a long-lasting scent experience."
+}
+
+
+]
+
+}
+
+],
+
+
+"presets":[
+
+{
+
+"name":"FAQ Section",
+
+"blocks":[
+
+{
+"type":"faq"
+},
+
+{
+"type":"faq"
+},
+
+{
+"type":"faq"
+}
+
+]
+
+}
+
+]
+
+}
+{% endschema %}

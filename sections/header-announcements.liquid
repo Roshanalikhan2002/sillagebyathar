@@ -1,0 +1,138 @@
+
+
+{% liquid
+  assign marquee_text = section.settings.marquee_text | default: 'SALE 50% OFF'
+  assign marquee_link = section.settings.marquee_link
+  assign bar_bg = section.settings.bar_bg | default: '#000000'
+  assign bar_color = section.settings.bar_color | default: '#ffffff'
+  assign marquee_speed = section.settings.marquee_speed | default: 22
+  assign font_size = section.settings.font_size | default: '13px'
+%}
+
+<div class="bstndsls-bar-marquee-wrapper" style="background: {{ bar_bg }}; color: {{ bar_color }}; width: 100%; max-width: 100vw; overflow: hidden; contain: layout paint; min-height: 36px; display: flex; align-items: center;">
+  {% if marquee_link != blank %}
+    <a href="{{ marquee_link }}" class="bstndsls-bar-marquee-link" style="color: inherit; text-decoration: none; width: 100%; max-width: 100vw; overflow: hidden; display: block;">
+  {% endif %}
+  <div class="bstndsls-bar-marquee" data-cursor-stop="true" data-direction="left">
+    <div class="bstndsls-bar-marquee-inner">
+      <div class="bstndsls-bar-marquee-content" style="font-size: {{ font_size }};">
+        {% for i in (1..14) %}
+          <span>{{ marquee_text }}</span><span class="marquee-sep">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        {% endfor %}
+      </div>
+      <div class="bstndsls-bar-marquee-content" style="font-size: {{ font_size }};" aria-hidden="true">
+        {% for i in (1..14) %}
+          <span>{{ marquee_text }}</span><span class="marquee-sep">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% if marquee_link != blank %}
+    </a>
+  {% endif %}
+</div>
+
+<style>
+  .bstndsls-bar-marquee-wrapper {
+    position: relative;
+    z-index: 10;
+    line-height: 1;
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden !important;
+  }
+  .bstndsls-bar-marquee {
+    overflow: hidden !important;
+    width: 100%;
+    max-width: 100%;
+    padding: 9px 0;
+  }
+  .bstndsls-bar-marquee-inner {
+    display: flex;
+    width: max-content;
+    animation: bstndsls-marquee-scroll {{ marquee_speed }}s linear infinite;
+    will-change: transform;
+  }
+  .bstndsls-bar-marquee[data-cursor-stop="true"]:hover .bstndsls-bar-marquee-inner,
+  .bstndsls-bar-marquee-wrapper:hover .bstndsls-bar-marquee-inner {
+    animation-play-state: paused;
+  }
+  .bstndsls-bar-marquee-content {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  @keyframes bstndsls-marquee-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Announcement Marquee",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Announcement Text",
+      "default": "SALE 50% OFF"
+    },
+    {
+      "type": "url",
+      "id": "marquee_link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "bar_bg",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bar_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "label": "Scroll Speed",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "default": 22,
+      "unit": "sec"
+    },
+    {
+      "type": "select",
+      "id": "font_size",
+      "label": "Font Size",
+      "options": [
+        { "value": "12px", "label": "Small (12px)" },
+        { "value": "13px", "label": "Medium (13px)" },
+        { "value": "14px", "label": "Large (14px)" },
+        { "value": "16px", "label": "Extra Large (16px)" }
+      ],
+      "default": "13px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Marquee"
+    }
+  ]
+}
+{% endschema %}

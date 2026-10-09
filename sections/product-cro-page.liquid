@@ -1,0 +1,1157 @@
+{% comment %}
+  CRO Optimized Product Page
+  Luxury Perfume / D2C Layout
+{% endcomment %}
+
+<section class="cro-product-wrapper">
+
+<div class="cro-product-container">
+
+<!-- LEFT SIDE PRODUCT GALLERY -->
+
+<div class="cro-gallery">
+
+<div class="cro-main-image">
+
+{% if product.featured_media %}
+<img 
+id="mainProductImage"
+src="{{ product.featured_media | image_url: width: 900 }}"
+srcset="{{ product.featured_media | image_url: width: 450 }} 450w, {{ product.featured_media | image_url: width: 700 }} 700w, {{ product.featured_media | image_url: width: 900 }} 900w, {{ product.featured_media | image_url: width: 1200 }} 1200w"
+sizes="(max-width: 768px) 100vw, 50vw"
+alt="{{ product.title | escape }}"
+width="{{ product.featured_media.width | default: 900 }}"
+height="{{ product.featured_media.height | default: 900 }}"
+loading="eager"
+fetchpriority="high"
+decoding="async"
+>
+{% endif %}
+
+</div>
+
+
+<div class="cro-thumbnails">
+
+{% for media in product.media %}
+
+<div class="cro-thumb {% if forloop.first %}active{% endif %}"
+onclick="changeProductImage('{{ media | image_url: width: 900 }}', this)">
+
+<img 
+src="{{ media | image_url: width: 150 }}"
+alt="{{ product.title | escape }}"
+width="85"
+height="85"
+loading="lazy"
+decoding="async"
+>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+</div>
+
+
+
+<!-- RIGHT SIDE PRODUCT INFO -->
+
+
+<div class="cro-product-info">
+
+
+<h1 class="cro-title">
+{{ product.title }}
+</h1>
+
+
+<!-- REVIEWS -->
+
+<div class="cro-review">
+
+<span class="stars">
+★★★★★
+</span>
+
+<span>
+4.9/5 (120+ Reviews)
+</span>
+
+</div>
+
+
+
+<!-- PRICE -->
+
+<div class="cro-price">
+
+<span class="current-price">
+{{ product.price | money }}
+</span>
+
+
+{% if product.compare_at_price > product.price %}
+
+<span class="compare-price">
+{{ product.compare_at_price | money }}
+</span>
+
+{% endif %}
+
+</div>
+
+
+
+
+<!-- URGENCY -->
+
+<div class="cro-urgency">
+
+<div class="urgency-box">
+
+🔥 Limited Time Offer!
+
+Get Free Delivery Today
+
+</div>
+
+
+
+<div class="stock-box">
+
+✓ In Stock & Ready To Ship
+
+</div>
+
+
+
+<div class="viewer-box">
+
+👁
+
+<span id="viewerCount">
+14
+</span>
+
+people are viewing this product right now
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- PRODUCT FORM -->
+
+
+{% form 'product',
+product,
+id:'cro-product-form'
+%}
+
+
+
+<!-- VARIANTS -->
+
+
+{% unless product.has_only_default_variant %}
+
+<div class="variant-wrapper">
+
+<label for="cro-variant-select">
+Select Option
+</label>
+
+<select id="cro-variant-select" name="id" aria-label="Select variant">
+
+{% for variant in product.variants %}
+
+<option value="{{ variant.id }}">
+
+{{ variant.title }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+
+</div>
+
+{% endunless %}
+
+
+
+
+
+<!-- QUANTITY -->
+
+<div class="quantity-wrapper">
+
+<label for="quantityInput">
+Quantity
+</label>
+
+
+<div class="quantity-box">
+
+<button type="button"
+aria-label="Decrease quantity"
+onclick="changeQty(-1)">
+-
+</button>
+
+
+<input 
+type="number"
+id="quantityInput"
+name="quantity"
+value="1"
+min="1"
+aria-label="Quantity"
+>
+
+
+<button type="button"
+aria-label="Increase quantity"
+onclick="changeQty(1)">
++
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- CTA BUTTONS -->
+
+
+<button
+type="submit"
+class="add-cart-btn">
+
+ADD TO CART
+
+</button>
+
+
+
+<button
+type="button"
+onclick="buyNow()"
+class="buy-now-btn">
+
+BUY NOW
+
+</button>
+
+
+
+{% endform %}
+
+
+
+
+
+<!-- TRUST BADGES -->
+
+
+<div class="trust-badges">
+
+
+<div>
+🚚
+<br>
+Nationwide Delivery
+</div>
+
+
+<div>
+🔒
+<br>
+Secure Checkout
+</div>
+
+
+<div>
+↩
+<br>
+Easy Returns
+</div>
+
+
+<div>
+📦
+<br>
+Free Shipping
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- ACCORDION -->
+
+
+<div class="cro-accordion">
+
+
+<div class="accordion-item">
+
+<button type="button" aria-expanded="false">
+Product Details
+<span>+</span>
+</button>
+
+
+<div class="accordion-content">
+
+{{ product.description }}
+
+</div>
+
+</div>
+
+
+
+
+<div class="accordion-item">
+
+<button type="button" aria-expanded="false">
+Shipping Policy
+<span>+</span>
+</button>
+
+
+<div class="accordion-content">
+
+✓ Delivery across Pakistan
+
+<br>
+
+✓ Cash on Delivery Available
+
+<br>
+
+✓ Delivery within 3-5 working days
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+<style>
+
+/* ================================
+   CRO PRODUCT PAGE STYLE
+================================ */
+
+
+.cro-product-wrapper{
+    width:100%;
+    padding:40px 0;
+}
+
+
+.cro-product-container{
+    max-width:1300px;
+    margin:auto;
+    display:grid;
+    grid-template-columns: 45% 50%;
+    gap:50px;
+    padding:0 30px;
+}
+
+
+/* ================================
+   PRODUCT GALLERY
+================================ */
+
+
+.cro-main-image{
+    width:100%;
+    aspect-ratio:1 / 1;
+    contain:layout;
+    border-radius:16px;
+    overflow:hidden;
+    background:#f8f8f8;
+}
+
+
+.cro-main-image img{
+    width:100%;
+    height:100%;
+    aspect-ratio:1 / 1;
+    display:block;
+    object-fit:cover;
+}
+
+
+
+.cro-thumbnails{
+
+    display:flex;
+    gap:12px;
+    margin-top:18px;
+    overflow-x:auto;
+
+}
+
+
+.cro-thumb{
+
+    width:85px;
+    height:85px;
+    aspect-ratio:1 / 1;
+    contain:layout;
+    border-radius:10px;
+    overflow:hidden;
+    cursor:pointer;
+    border:1px solid #ddd;
+    flex-shrink:0;
+
+}
+
+
+.cro-thumb img{
+    width:100%;
+    height:100%;
+    aspect-ratio:1 / 1;
+    object-fit:cover;
+    display:block;
+}
+
+
+
+
+
+
+.cro-thumb.active{
+
+    border:2px solid #111;
+
+}
+
+
+
+
+
+/* ================================
+ PRODUCT INFO
+================================ */
+
+
+
+.cro-product-info{
+
+    position:relative;
+
+}
+
+
+
+.cro-title{
+
+    font-size:32px;
+    line-height:1.25;
+    font-weight:600;
+    margin:0 0 12px;
+    max-width:420px;
+
+}
+
+
+
+.cro-review{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:15px;
+    margin-bottom:18px;
+
+}
+
+
+
+.stars{
+
+    color:#d4af37;
+    font-size:18px;
+
+}
+
+
+
+
+
+/* ================================
+PRICE
+================================ */
+
+
+.cro-price{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+
+}
+
+
+
+.current-price{
+
+    font-size:28px;
+    font-weight:700;
+
+}
+
+
+
+.compare-price{
+
+    text-decoration:line-through;
+    color:#555;
+    font-size:18px;
+
+}
+
+
+
+
+
+/* ================================
+URGENCY
+================================ */
+
+
+
+.cro-urgency{
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:25px;
+
+}
+
+
+.urgency-box{
+
+    background:#fff4e8;
+    padding:12px 15px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:600;
+
+}
+
+
+
+.stock-box{
+
+    background:#ecfff1;
+    color:#147a32;
+    padding:12px 15px;
+    border-radius:8px;
+    font-size:14px;
+
+}
+
+
+
+.viewer-box{
+
+    background:#f6f6f6;
+    padding:12px 15px;
+    border-radius:8px;
+    font-size:14px;
+
+}
+
+
+
+
+
+
+/* ================================
+VARIANT
+================================ */
+
+
+.variant-wrapper{
+
+    margin-bottom:20px;
+
+}
+
+
+
+.variant-wrapper label,
+.quantity-wrapper label{
+
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+
+}
+
+
+
+.variant-wrapper select{
+
+    width:100%;
+    height:50px;
+    padding:0 15px;
+    border-radius:8px;
+    border:1px solid #ddd;
+
+}
+
+
+
+
+
+
+/* ================================
+QUANTITY
+================================ */
+
+
+
+.quantity-wrapper{
+
+    margin-bottom:20px;
+
+}
+
+
+
+.quantity-box{
+
+    display:flex;
+    align-items:center;
+    border:1px solid #ddd;
+    width:max-content;
+    border-radius:8px;
+    overflow:hidden;
+
+}
+
+
+
+.quantity-box button{
+
+    width:45px;
+    height:45px;
+    border:none;
+    background:#f5f5f5;
+    font-size:20px;
+    cursor:pointer;
+
+}
+
+
+
+.quantity-box input{
+
+    width:50px;
+    height:45px;
+    text-align:center;
+    border:none;
+
+}
+
+
+
+
+
+
+/* ================================
+BUTTONS
+================================ */
+
+
+
+.add-cart-btn,
+.buy-now-btn{
+
+    width:100%;
+    height:58px;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    margin-bottom:12px;
+
+}
+
+
+
+.add-cart-btn{
+
+    background:#111;
+    color:white;
+    border:none;
+
+}
+
+
+
+.buy-now-btn{
+
+    background:#805917;
+    color:white;
+    border:none;
+
+}
+
+
+
+
+
+/* ================================
+TRUST BADGES
+================================ */
+
+
+.trust-badges{
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-top:20px;
+
+}
+
+
+
+.trust-badges div{
+
+    background:#fafafa;
+    color:#333;
+    border:1px solid #eee;
+    border-radius:10px;
+    padding:15px 5px;
+    text-align:center;
+    font-size:12px;
+
+}
+
+
+
+
+
+
+/* ================================
+ACCORDION
+================================ */
+
+
+.cro-accordion{
+
+    margin-top:30px;
+
+}
+
+
+
+.accordion-item{
+
+    border-top:1px solid #ddd;
+
+}
+
+
+
+.accordion-item button{
+
+    width:100%;
+    background:none;
+    border:none;
+    padding:18px 0;
+    display:flex;
+    justify-content:space-between;
+    font-size:16px;
+    cursor:pointer;
+
+}
+
+
+
+.accordion-content{
+
+    display:none;
+    padding-bottom:18px;
+    line-height:1.7;
+    color:#555;
+
+}
+
+
+
+
+
+
+/* ================================
+MOBILE
+================================ */
+
+
+
+@media(max-width:768px){
+
+
+.cro-product-container{
+
+    display:flex;
+    flex-direction:column;
+    padding:0 15px;
+    gap:25px;
+
+}
+
+
+.cro-title{
+
+    font-size:23px;
+
+}
+
+
+
+.current-price{
+
+    font-size:24px;
+
+}
+
+
+
+.trust-badges{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+
+.cro-main-image img{
+
+    height:auto;
+
+}
+
+
+
+.cro-product-wrapper{
+
+    padding-top:20px;
+
+}
+
+
+
+}
+
+</style>
+
+<script>
+
+
+/* =================================
+   PRODUCT IMAGE SWITCHER
+================================= */
+
+
+function changeProductImage(image, element){
+
+    let mainImage = document.getElementById(
+        "mainProductImage"
+    );
+
+    if(mainImage){
+
+        mainImage.src = image;
+
+    }
+
+
+    document.querySelectorAll(
+        ".cro-thumb"
+    ).forEach(function(item){
+
+        item.classList.remove("active");
+
+    });
+
+
+    element.classList.add("active");
+
+}
+
+
+
+
+/* =================================
+   QUANTITY CONTROL
+================================= */
+
+
+function changeQty(value){
+
+    let input = document.getElementById(
+        "quantityInput"
+    );
+
+
+    if(!input) return;
+
+
+    let current = parseInt(
+        input.value
+    );
+
+
+    current = current + value;
+
+
+    if(current < 1){
+
+        current = 1;
+
+    }
+
+
+    input.value = current;
+
+}
+
+
+
+
+
+
+/* =================================
+   LIVE VIEWER COUNTER
+================================= */
+
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+
+let viewerNumbers = [
+10,
+14,
+18,
+20,
+24
+];
+
+
+let viewerElement =
+document.getElementById(
+"viewerCount"
+);
+
+
+
+if(viewerElement){
+
+
+setInterval(function(){
+
+
+let randomNumber =
+viewerNumbers[
+Math.floor(
+Math.random() *
+viewerNumbers.length
+)
+];
+
+
+viewerElement.innerHTML =
+randomNumber;
+
+
+
+},45000);
+
+
+
+}
+
+
+
+
+
+/* =================================
+ ACCORDION
+================================= */
+
+
+
+let accordionButtons =
+document.querySelectorAll(
+".accordion-item button"
+);
+
+
+
+accordionButtons.forEach(
+function(button){
+
+
+button.addEventListener(
+"click",
+function(){
+
+
+let content =
+this.nextElementSibling;
+
+
+
+if(content.style.display === "block"){
+
+
+content.style.display="none";
+this.setAttribute("aria-expanded", "false");
+
+this.querySelector("span")
+.innerHTML="+";
+
+
+
+}else{
+
+
+content.style.display="block";
+this.setAttribute("aria-expanded", "true");
+
+this.querySelector("span")
+.innerHTML="-";
+
+
+}
+
+
+
+
+});
+
+
+});
+
+
+
+});
+
+
+
+
+
+
+
+
+/* =================================
+ BUY NOW BUTTON
+================================= */
+
+
+function buyNow(){
+
+
+let form =
+document.getElementById(
+"cro-product-form"
+);
+
+
+
+if(form){
+
+
+let formData =
+new FormData(form);
+
+
+
+fetch(
+"/cart/add.js",
+{
+
+method:"POST",
+
+body:formData
+
+
+}
+
+)
+.then(
+
+function(){
+
+window.location.href="/checkout";
+
+
+}
+
+);
+
+
+
+}
+
+
+
+}
+
+
+
+</script>
+
+
+{% schema %}
+{
+  "name": "CRO Product Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "CRO Product Page"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,291 @@
+<section class="trust-bar-section">
+
+<div class="trust-slider-container">
+
+
+<div class="trust-slider" id="trustSlider">
+
+
+<div class="trust-item">
+
+<div class="trust-icon">
+🚚
+</div>
+
+<div>
+<h4>Nationwide Delivery</h4>
+<p>Fast Delivery Across Pakistan</p>
+</div>
+
+</div>
+
+
+
+
+<div class="trust-item">
+
+<div class="trust-icon">
+✨
+</div>
+
+<div>
+<h4>Premium Fragrance Oils</h4>
+<p>Luxury Inspired Scents</p>
+</div>
+
+</div>
+
+
+
+
+<div class="trust-item">
+
+<div class="trust-icon">
+🔒
+</div>
+
+<div>
+<h4>Secure Checkout</h4>
+<p>Safe & Easy Payments</p>
+</div>
+
+</div>
+
+
+
+
+<div class="trust-item">
+
+<div class="trust-icon">
+↩
+</div>
+
+<div>
+<h4>Easy Exchange</h4>
+<p>Hassle-Free Returns</p>
+</div>
+
+</div>
+
+
+
+
+<div class="trust-item">
+
+<div class="trust-icon">
+⭐
+</div>
+
+<div>
+<h4>1000+ Happy Customers</h4>
+<p>Trusted Fragrance Lovers</p>
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+<style>
+
+
+.trust-bar-section{
+
+width:100%;
+background:#F9F6F1;
+padding:22px 0;
+overflow:hidden;
+min-height:85px;
+contain:layout style;
+
+}
+
+
+
+.trust-slider-container{
+
+max-width:1400px;
+margin:auto;
+padding:0 30px;
+
+}
+
+
+
+.trust-slider{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:30px;
+
+}
+
+
+
+.trust-item{
+
+display:flex;
+align-items:center;
+gap:6px;
+min-width:226px;
+
+}
+
+
+
+.trust-icon{
+
+font-size:18px;
+width:45px;
+height:45px;
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+
+
+.trust-item h4{
+
+font-size:12px;
+font-weight:600;
+margin:0 0 2px;
+color:#222;
+
+}
+
+
+
+.trust-item p{
+
+font-size:12px;
+margin:0;
+color:#444;
+
+}
+
+@media(max-width:768px){
+
+.trust-bar-section{
+
+padding:18px 0;
+
+}
+
+
+.trust-bar-section .trust-slider-container{
+
+padding:0 15px;
+
+}
+
+
+.trust-bar-section .trust-slider{
+
+display:flex;
+overflow-x:auto;
+gap:20px;
+animation:none;
+scroll-snap-type:x mandatory;
+
+}
+
+
+
+.trust-bar-section .trust-item{
+
+min-width:100%;
+justify-content:flex-start;
+scroll-snap-align:start;
+background:white;
+padding:15px;
+border-radius:12px;
+
+}
+
+
+
+.trust-bar-section .trust-slider::-webkit-scrollbar{
+
+display:none;
+
+}
+
+
+}
+
+</style>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+const trustSlider = document.querySelector(".trust-slider");
+
+if(!trustSlider) return;
+
+
+let scrollAmount = 0;
+
+let slideWidth = 300;
+
+
+setInterval(function(){
+
+
+if(window.innerWidth <= 768){
+
+
+scrollAmount += slideWidth;
+
+
+if(scrollAmount >= trustSlider.scrollWidth - trustSlider.clientWidth){
+
+scrollAmount = 0;
+
+}
+
+
+
+trustSlider.scrollTo({
+
+left: scrollAmount,
+
+behavior: "smooth"
+
+});
+
+
+}
+
+
+},3000);
+
+
+});
+
+</script>
+
+
+
+{% schema %}
+{
+"name":"Trust Bar Slider",
+"settings":[],
+"presets":[
+{
+"name":"Trust Bar Slider"
+}
+]
+}
+{% endschema %}

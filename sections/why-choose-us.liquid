@@ -1,0 +1,374 @@
+<section class="comparison-section">
+
+<div class="comparison-container">
+
+
+<div class="comparison-header">
+
+<h2>
+{{ section.settings.heading }}
+</h2>
+
+<p>
+{{ section.settings.subheading }}
+</p>
+
+</div>
+
+
+
+<div class="comparison-table">
+
+
+<div class="comparison-row comparison-head">
+
+<div>
+Features
+</div>
+
+<div class="sillage-column">
+Sillage By Athar
+</div>
+
+<div>
+Others
+</div>
+
+</div>
+
+
+
+{% for block in section.blocks %}
+
+
+<div class="comparison-row">
+
+
+<div class="feature-name">
+
+{{ block.settings.feature }}
+
+</div>
+
+
+<div class="sillage-column">
+
+<span class="check">
+✓
+</span>
+
+</div>
+
+
+
+<div>
+
+<span class="cross">
+✕
+</span>
+
+</div>
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+
+<style>
+
+
+.comparison-section{
+
+padding:80px 20px;
+background:#fff;
+
+}
+
+
+
+.comparison-container{
+
+max-width:1000px;
+margin:auto;
+
+}
+
+
+
+.comparison-header{
+
+text-align:center;
+margin-bottom:45px;
+
+}
+
+
+
+.comparison-header h2{
+
+font-size:40px;
+font-weight:500;
+margin-bottom:10px;
+
+}
+
+
+
+.comparison-header p{
+
+color:#666;
+
+}
+
+
+
+
+.comparison-table{
+
+border:1px solid #e8e8e8;
+border-radius:18px;
+overflow:hidden;
+
+}
+
+
+
+.comparison-row{
+
+display:grid;
+grid-template-columns:2fr 1fr 1fr;
+align-items:center;
+border-bottom:1px solid #eee;
+text-align:center;
+
+}
+
+
+
+.comparison-row:last-child{
+
+border-bottom:none;
+
+}
+
+
+
+.comparison-row > div{
+
+padding:18px;
+
+}
+
+
+
+
+.comparison-head{
+
+background:#f8f3ec;
+font-weight:600;
+font-size:17px;
+
+}
+
+
+
+.check{
+
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:30px;
+height:30px;
+background:#1c8c4a;
+color:#fff;
+border-radius:50%;
+font-weight:bold;
+
+}
+
+
+
+.cross{
+
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:30px;
+height:30px;
+background:#e8e8e8;
+color:#999;
+border-radius:50%;
+
+}
+
+
+
+.feature-name{
+
+text-align:left;
+font-weight:500;
+font-size: 16px;
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+.comparison-section{
+
+padding:50px 15px;
+
+}
+
+
+.feature-name{
+
+text-align:left;
+font-weight:500;
+font-size: 12px;
+
+}
+
+
+.comparison-header h2{
+
+font-size:30px;
+
+}
+
+
+
+.comparison-row{
+
+grid-template-columns:1.6fr 1fr 1fr;
+font-size:13px;
+
+}
+
+
+
+.comparison-row > div{
+
+padding:14px 8px;
+
+}
+
+
+
+.check,
+.cross{
+
+width:25px;
+height:25px;
+
+}
+
+
+
+}
+
+
+</style>
+
+
+
+
+
+{% schema %}
+{
+"name":"Why Choose Comparison",
+
+"settings":[
+
+{
+"type":"text",
+"id":"heading",
+"label":"Heading",
+"default":"Why Choose Sillage By Athar?"
+},
+
+{
+"type":"textarea",
+"id":"subheading",
+"label":"Sub Heading",
+"default":"See why fragrance lovers choose us over ordinary perfumes."
+}
+
+],
+
+
+"blocks":[
+
+{
+"type":"comparison",
+"name":"Comparison Point",
+
+"settings":[
+
+{
+"type":"text",
+"id":"feature",
+"label":"Feature",
+"default":"Premium Fragrance Oils"
+}
+
+]
+
+}
+
+],
+
+
+"presets":[
+
+{
+"name":"Why Choose Comparison",
+
+"blocks":[
+
+{
+"type":"comparison"
+},
+
+{
+"type":"comparison"
+},
+
+{
+"type":"comparison"
+},
+
+{
+"type":"comparison"
+},
+
+{
+"type":"comparison"
+}
+
+]
+
+}
+
+]
+
+}
+{% endschema %}

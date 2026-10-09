@@ -1,0 +1,165 @@
+
+{%- comment -%}
+  ---------------------------------------------------------
+  Sillage | Safe Performance Optimizer
+  Developed by Fulfillit
+
+  - Native Shopify cart handling preserved
+  - No third-party script rewriting
+  - Optimized header scroll state
+  - Responsive layout styling retained
+  ---------------------------------------------------------
+{%- endcomment -%}
+
+<script>
+(function () {
+  'use strict';
+
+  if (window.Shopify && window.Shopify.designMode) {
+    return;
+  }
+
+  var lastScrolledState = null;
+  var ticking = false;
+
+  function updateHeaderScrollState() {
+    var header = document.getElementById('header-component');
+    var headerSection = document.querySelector('.header-section');
+
+    var isScrolled =
+      (window.pageYOffset ||
+       document.documentElement.scrollTop ||
+       0) > 10;
+
+    if (lastScrolledState === isScrolled) {
+      ticking = false;
+      return;
+    }
+
+    lastScrolledState = isScrolled;
+
+    if (header) {
+      header.classList.toggle('is-scrolled', isScrolled);
+
+      header.setAttribute(
+        'data-sticky-state',
+        isScrolled ? 'active' : 'inactive'
+      );
+    }
+
+    if (headerSection) {
+      headerSection.classList.toggle(
+        'header-section--scrolled',
+        isScrolled
+      );
+    }
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateHeaderScrollState);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, {
+    passive: true
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      updateHeaderScrollState,
+      { once: true }
+    );
+  } else {
+    updateHeaderScrollState();
+  }
+
+})();
+</script>
+
+<style>
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  @supports not (overflow-x: clip) {
+    html,
+    body {
+      overflow-x: hidden;
+    }
+  }
+
+  :is(
+    .header[data-sticky-state='active'],
+    .header.is-scrolled,
+    .header-scrolled,
+    [data-header-scrolled='true']
+  ) .header__row,
+  .header-section:has(
+    > #header-component[data-sticky-state='active']
+  ) .header__row,
+  .header-section:has(
+    > #header-component.is-scrolled
+  ) .header__row,
+  .header-section.header-section--scrolled .header__row {
+    background-color: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: blur(16px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    transition:
+      background-color 0.25s ease,
+      backdrop-filter 0.25s ease,
+      box-shadow 0.25s ease !important;
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-logo__text,
+    .logo-block__text {
+      font-size: clamp(1.2rem, 5vw, 1.5rem) !important;
+      line-height: 1.2;
+    }
+
+    .footer .logo-block,
+    .footer .logo-block__text-wrapper {
+      max-width: 100% !important;
+      overflow: hidden !important;
+    }
+
+    img,
+    video,
+    iframe {
+      max-width: 100%;
+    }
+
+    .section-content-wrapper {
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 750px)
+    and (max-width: 989px) {
+    .header-logo__text,
+    .logo-block__text {
+      font-size: 1.6rem !important;
+    }
+
+    .section-content-wrapper {
+      box-sizing: border-box;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .header-logo__text,
+    .logo-block__text {
+      font-size: 1.85rem !important;
+    }
+  }
+</style>
