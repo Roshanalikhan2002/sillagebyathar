@@ -1,7 +1,16 @@
 {%- if font != blank -%}
-  {{ font | font_face: font_display: 'swap' }}
-  {%- capture subset_asset -%}{%- render 'font-subset-asset', font: font -%}{%- endcapture -%}
-  {%- assign subset_asset = subset_asset | strip -%}
+  {%- capture original_font_face -%}{{ font | font_face: font_display: 'swap' }}{%- endcapture -%}
+  {{ original_font_face }}
+  {%- assign subset_asset = '' -%}
+  {%- if original_font_face contains 'newsreader_n2.5960e0b0697503210b916625dc75038e9a2edf1e' -%}
+    {%- assign subset_asset = 'newsreader-latin-200.woff2' -%}
+  {%- elsif original_font_face contains 'newsreader_n7.23ab8134dd970213aaed7699491a8a2cb47dae45' -%}
+    {%- assign subset_asset = 'newsreader-latin-700.woff2' -%}
+  {%- elsif original_font_face contains 'redhattext_n4.f45549d853e5e3e2907f21be9aecf95e1eaa7516' -%}
+    {%- assign subset_asset = 'red-hat-text-latin-400.woff2' -%}
+  {%- elsif original_font_face contains 'redhattext_n7.01cb725162eb34b374670b9c1bc513ac241650e6' -%}
+    {%- assign subset_asset = 'red-hat-text-latin-700.woff2' -%}
+  {%- endif -%}
   {%- if subset_asset != blank -%}
     @font-face {
       font-family: {{ font.family | json }};
