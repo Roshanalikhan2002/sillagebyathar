@@ -60,7 +60,9 @@
   if section.index == 1
     assign fetch_priority = 'high'
     assign loading_attr = 'eager'
-    assign preload_image = true
+    if request.page_type != 'index'
+      assign preload_image = true
+    endif
   endif
 %}
 

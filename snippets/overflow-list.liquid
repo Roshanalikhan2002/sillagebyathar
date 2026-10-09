@@ -22,7 +22,7 @@
   {% endif %}
 >
   <template shadowrootmode="open">
-    {{ 'overflow-list.css' | asset_url | stylesheet_tag }}
+    <style>{% render 'overflow-list-styles' %}</style>
 
     <ul part="list">
       <slot></slot>

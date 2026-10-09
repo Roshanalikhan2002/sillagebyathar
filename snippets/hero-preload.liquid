@@ -1,0 +1,19 @@
+{%- comment -%}
+  Read the first eager hero's already-rendered image attributes so the preload
+  uses exactly the same CDN URLs, srcset and sizes as image_tag. A single HTML
+  hint lets us set fetchpriority on the request itself without a second,
+  lower-priority image_tag HTTP-header preload.
+{%- endcomment -%}
+{%- if request.page_type == 'index' -%}
+  {%- assign image_tags = content_for_layout | split: '<img ' -%}
+  {%- for image_tag_markup in image_tags offset: 1 -%}
+    {%- assign image_attributes = image_tag_markup | split: '>' | first -%}
+    {%- if image_attributes contains 'class="hero__image"' and image_attributes contains 'loading="eager"' and image_attributes contains 'fetchpriority="high"' -%}
+      {%- assign hero_src = image_attributes | split: 'src="' | last | split: '"' | first -%}
+      {%- assign hero_srcset = image_attributes | split: 'srcset="' | last | split: '"' | first -%}
+      {%- assign hero_sizes = image_attributes | split: 'sizes="' | last | split: '"' | first -%}
+      <link rel="preload" as="image" href="{{ hero_src }}" imagesrcset="{{ hero_srcset }}" imagesizes="{{ hero_sizes }}" fetchpriority="high">
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
