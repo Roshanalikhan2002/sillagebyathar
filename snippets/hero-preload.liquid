@@ -5,7 +5,7 @@
   lower-priority image_tag HTTP-header preload.
 {%- endcomment -%}
 {%- if request.page_type == 'index' -%}
-  {%- assign image_tags = content_for_layout | split: '<img ' -%}
+  {%- assign image_tags = page_content | split: '<img ' -%}
   {%- for image_tag_markup in image_tags offset: 1 -%}
     {%- assign image_attributes = image_tag_markup | split: '>' | first -%}
     {%- if image_attributes contains 'class="hero__image"' and image_attributes contains 'loading="eager"' and image_attributes contains 'fetchpriority="high"' -%}

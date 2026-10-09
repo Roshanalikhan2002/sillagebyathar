@@ -19,7 +19,7 @@
   <head>
     {%- render 'meta-tags' -%}
     {%- render 'stylesheets' -%}
-    {%- render 'hero-preload' -%}
+    {%- render 'hero-preload', page_content: content_for_layout -%}
 
     {%- if settings.favicon != blank -%}
       <link
