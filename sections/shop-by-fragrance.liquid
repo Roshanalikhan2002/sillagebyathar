@@ -29,6 +29,12 @@
 {% for block in section.blocks %}
 
 {% assign collection = block.settings.collection %}
+{% liquid
+  assign fragrance_loading = 'lazy'
+  if section.index <= 3 and forloop.index <= 2
+    assign fragrance_loading = 'eager'
+  endif
+%}
 
 
 
@@ -46,12 +52,12 @@ class="fragrance-card"
 
 <img 
 src="{{ block.settings.custom_image | image_url: width: 380 }}"
-srcset="{{ block.settings.custom_image | image_url: width: 130 }} 130w, {{ block.settings.custom_image | image_url: width: 190 }} 190w, {{ block.settings.custom_image | image_url: width: 260 }} 260w, {{ block.settings.custom_image | image_url: width: 380 }} 380w"
+srcset="{{ block.settings.custom_image | image_url: width: 130 }} 130w, {{ block.settings.custom_image | image_url: width: 190 }} 190w, {{ block.settings.custom_image | image_url: width: 228 }} 228w, {{ block.settings.custom_image | image_url: width: 260 }} 260w, {{ block.settings.custom_image | image_url: width: 380 }} 380w"
 sizes="(max-width: 768px) 130px, 190px"
 alt="{{ block.settings.title | escape }}"
 width="190"
 height="190"
-loading="lazy"
+loading="{{ fragrance_loading }}"
 decoding="async"
 >
 
@@ -61,12 +67,12 @@ decoding="async"
 
 <img
 src="{{ collection.image | image_url: width: 380 }}"
-srcset="{{ collection.image | image_url: width: 130 }} 130w, {{ collection.image | image_url: width: 190 }} 190w, {{ collection.image | image_url: width: 260 }} 260w, {{ collection.image | image_url: width: 380 }} 380w"
+srcset="{{ collection.image | image_url: width: 130 }} 130w, {{ collection.image | image_url: width: 190 }} 190w, {{ collection.image | image_url: width: 228 }} 228w, {{ collection.image | image_url: width: 260 }} 260w, {{ collection.image | image_url: width: 380 }} 380w"
 sizes="(max-width: 768px) 130px, 190px"
 alt="{{ collection.title | escape }}"
 width="190"
 height="190"
-loading="lazy"
+loading="{{ fragrance_loading }}"
 decoding="async"
 >
 
@@ -76,12 +82,12 @@ decoding="async"
 
 <img
 src="{{ collection.products.first.featured_image | image_url: width: 380 }}"
-srcset="{{ collection.products.first.featured_image | image_url: width: 130 }} 130w, {{ collection.products.first.featured_image | image_url: width: 190 }} 190w, {{ collection.products.first.featured_image | image_url: width: 260 }} 260w, {{ collection.products.first.featured_image | image_url: width: 380 }} 380w"
+srcset="{{ collection.products.first.featured_image | image_url: width: 130 }} 130w, {{ collection.products.first.featured_image | image_url: width: 190 }} 190w, {{ collection.products.first.featured_image | image_url: width: 228 }} 228w, {{ collection.products.first.featured_image | image_url: width: 260 }} 260w, {{ collection.products.first.featured_image | image_url: width: 380 }} 380w"
 sizes="(max-width: 768px) 130px, 190px"
 alt="{{ collection.title | escape }}"
 width="190"
 height="190"
-loading="lazy"
+loading="{{ fragrance_loading }}"
 decoding="async"
 >
 
