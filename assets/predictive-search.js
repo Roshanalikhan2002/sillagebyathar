@@ -3,7 +3,7 @@ import { debounce, onAnimationEnd, prefersReducedMotion, onDocumentLoaded } from
 import { sectionRenderer } from '@theme/section-renderer';
 import { morph } from '@theme/morph';
 import { RecentlyViewed } from '@theme/recently-viewed-products';
-import { DialogCloseEvent, DialogComponent } from '@theme/dialog';
+import { DialogCloseEvent, DialogOpenEvent, DialogComponent } from '@theme/dialog';
 
 /**
  * A custom element that allows the user to search for resources available on the store.
@@ -53,9 +53,15 @@ class PredictiveSearchComponent extends Component {
       this.addEventListener('click', this.#handleModalClick, { signal });
     }
 
-    onDocumentLoaded(() => {
-      this.resetSearch(false); // Pass false to avoid focusing the input
-    });
+    // Closed search dialogs do not need recommendation markup during page load.
+    // Start the same initialization on first open; inline searches still load immediately.
+    if (dialog && !dialog.refs.dialog.open) {
+      dialog.addEventListener(DialogOpenEvent.eventName, () => this.resetSearch(false), { once: true, signal });
+    } else {
+      onDocumentLoaded(() => {
+        this.resetSearch(false); // Pass false to avoid focusing the input
+      });
+    }
   }
 
   /**
